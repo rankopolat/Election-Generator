@@ -1,0 +1,3 @@
+C:/Users/ranko/CLionProjects/ass2v2/cmake-build-debug/CMakeFiles/ass2v2.dir
+C:/Users/ranko/CLionProjects/ass2v2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/ranko/CLionProjects/ass2v2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
