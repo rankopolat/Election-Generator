@@ -98,7 +98,6 @@ public:
 class Candidate : public Human {
 
 private:
-
     unsigned int currentVote;
     unsigned int voteCount;
     double range;
@@ -107,6 +106,7 @@ public:
 
     Candidate(){};
     Candidate(const std::string &n);
+
     void setVotes(unsigned int votes){
         voteCount += votes;
         if(votes == 0){

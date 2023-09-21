@@ -66,7 +66,7 @@ void Electorate::generateGroups(unsigned int groupCount, std::vector<Issue> issu
     RandomEng rndEng;
     int electoratePopulation = 0;
 
-    for(int i = 0; i < groupCount; i++){
+    for(unsigned int i = 0; i < groupCount; i++){
 
         Group group;
         int groupPopulation = rndEng.randInt(700,1200);

@@ -6,6 +6,7 @@
 #include "newParty.h"
 #include "election.h"
 #include "random.h"
+
 using namespace std;
 
 unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -18,7 +19,7 @@ int RandomEng::randInt(int min, int max){
 
 }
 
-Candidate ElectionGenerator::generateCandidate(Party p, std::string name, int count){
+Candidate ElectionGenerator::generateCandidate(Party p, std::string name, unsigned int count){
 
         std::string _area = area[count];
         vector<Stance> partyStances = p.getStances();
@@ -30,7 +31,6 @@ Candidate ElectionGenerator::generateCandidate(Party p, std::string name, int co
         return candidate;
 
 }
-
 
 Leader ElectionGenerator::generateLeader(Party p, std::string name) {
 
@@ -109,7 +109,7 @@ void ElectionGenerator::generateParties(unsigned int n){
 
             }
 
-            int count = 0;
+            unsigned int count = 0;
             while(name.substr(0, 10) == "Candidate:") {
 
                 if (count < n) {
@@ -131,7 +131,7 @@ void ElectionGenerator::generateParties(unsigned int n){
 void ElectionGenerator::generateElectorate(unsigned int electorateNumber){
 
 
-    for(int i = 0; i < electorateNumber; i++){
+    for(unsigned int i = 0; i < electorateNumber; i++){
 
         Electorate electorate;
         std::string _area = area[i];
@@ -339,7 +339,7 @@ void ElectionGenerator::elecReport() {
     cout << endl << right << setw(82)<<" ---=+ELECTORATES+=---" << endl;
     cout << "Total numbmer of Electorates: " << totalElectorates << endl << endl;
 
-    for(int i = 0; i < totalElectorates; i++){
+    for(unsigned int i = 0; i < totalElectorates; i++){
 
         cout <<"Area of Location: " << electorates[i].getArea() << "  |  Total Population (";
         cout << electorates[i].getPop() <<  "):" << endl;
@@ -368,7 +368,7 @@ void ElectionGenerator::elecReport() {
 
         cout << endl << "Candidates: " << endl;
         cout << string(150,'~') << endl;
-        for(Candidate c: electorates[i].getCandidates()){
+        for(Candidate& c: electorates[i].getCandidates()){
 
             cout << c.getName() << " | Party: (" << c.getPartyName() << ") | ";
             cout << "Stances (Sig/Appr) | ";
@@ -376,8 +376,6 @@ void ElectionGenerator::elecReport() {
                 cout << s.getSignificant() << "/" << s.getApproach() << "\t";
             }
             cout << endl;
-            //c.printTraits();
-           // cout << endl;
 
         }
 
@@ -396,26 +394,26 @@ void ElectionGenerator::partyReport() {
 
     cout<< "There are a total of 3 parties:" << endl;
 
-    for (Party p : parties) {
+    for (Party& p : parties) {
 
-        cout << "\nParty : " << p.getPartyName() << endl;
-        cout  << "Description: " << p.getDiscription() << endl ;
-        cout << "Managerial Team: " << p.getTeam().getName() << endl << endl;
-        cout << string(150,'~') << endl;
+        std::cout << "\nParty : " << p.getPartyName() << std::endl;
+        std::cout  << "Description: " << p.getDiscription() << std::endl ;
+        std::cout << "Managerial Team: " << p.getTeam().getName() << std::endl << std::endl;
+        std::cout << std::string(150,'~') << std::endl;
 
-        cout << left << setw(35) << "Name";
+        std::cout << std::left << std::setw(35) << "Name";
         std::cout << std::left << std::setw(25) << "Role";
         std::cout << std::left << std::setw(25) << "Location";
-        std::cout << std::left << std::setw(25) << "Traits" << endl;
-        cout << string(150,'~') << endl;
+        std::cout << std::left << std::setw(25) << "Traits" << std::endl;
+        std::cout << std::string(150,'~') << std::endl;
 
-        cout << left << setw(35) << p.getLeader().getName();
+        std::cout << std::setw(35) << p.getLeader().getName();
         std::cout << std::left << std::setw(25) << "Leader";
         std::cout << std::left << std::setw(25) << p.getLeader().getLocation();
         p.getLeader().printTraits();
-        cout << endl;
+        std::cout << std::endl;
 
-        cout << left << setw(35) << p.getTeam().getName();
+        std::cout << std::left << std::setw(35) << p.getTeam().getName();
         std::cout << std::left << std::setw(25) << "Managerial Team";
         std::cout << std::left << std::setw(25) << "Everywhere";
         p.getTeam().printTraits();
@@ -423,7 +421,7 @@ void ElectionGenerator::partyReport() {
 
         for(Candidate c : p.getCandidates()){
 
-            cout << left << setw(35) << c.getName();
+            cout << std::left << std::setw(35) << c.getName();
             std::cout << std::left << std::setw(25) << "Candidate";
             std::cout << std::left << std::setw(25) << c.getLocation();
             c.printTraits();
@@ -431,9 +429,9 @@ void ElectionGenerator::partyReport() {
 
         }
 
-        cout << endl;
-        cout << string(150,'~') << endl;
-        cout <<left << setw(35) << "STANCES(Sig/Appr)";
+        std::cout << std::endl;
+        std::cout << string(150,'~') << endl;
+        std::cout << std::left << std::setw(35) << "STANCES(Sig/Appr)";
 
         for(Issue i: issues) {
 
@@ -462,7 +460,7 @@ void ElectionGenerator::runEvent(unsigned int days) {
 
         cout << days << " Days out from Voting " << endl << endl;
 
-        for (int i = 0; i < totalElectorates; i++) {
+        for (unsigned int i = 0; i < totalElectorates; i++) {
 
             int chance = rndEng.randInt(1, 100);
 
@@ -488,7 +486,7 @@ void ElectionGenerator::generateVotes(){
     cout << string(150,'~') << endl;
     cout << right << std::setw(70) << "Voting Begins" << endl;
     cout << string(150,'~') << endl;
-    for(int i = 0; i < totalElectorates; i++){
+    for(unsigned int i = 0; i < totalElectorates; i++){
 
         cout << string(150,'=') << endl;
         cout << "Vote for Electorate : " << electorates[i].getArea() << endl;
@@ -502,7 +500,7 @@ void ElectionGenerator::generateVotes(){
         unsigned int totalGroups = electorates[i].getTotalGroups();
         std::vector<Group> groups = electorates[i].getGroups();
 
-        for(int j = 0; j < totalGroups; j++){
+        for(unsigned int j = 0; j < totalGroups; j++){
 
 
             cout << left << setw(30) << "Group " + to_string(j+1) + " (" + to_string(groups[j].getPopulation()) + ")" << endl;
@@ -524,7 +522,7 @@ void ElectionGenerator::generateVotes(){
                 std::vector<Stance> canStance = c.getStance();
                 double totalRange = 0;
 
-                for(int m = 0; m < 4; m++) {
+                for(unsigned int m = 0; m < 4; m++) {
 
                     //Euclidean Distance Formula I think?
                     double range = std::sqrt(std::pow(groupStance[m].getApproach() - canStance[m].getApproach(), 2) + std::pow(groupStance[m].getSignificant() - canStance[m].getSignificant(), 2));
@@ -538,6 +536,7 @@ void ElectionGenerator::generateVotes(){
 
             std::string partyName;
             unsigned int pop = 0;
+
             for(Party& p :parties){
                 unsigned int leaderPop = p.getLeader().getTrait(POPULARITY);
                 if(leaderPop > pop){
@@ -572,7 +571,7 @@ void ElectionGenerator::generateVotes(){
 
             for(Candidate& _c: electorates[i].getCandidates()){
 
-                cout << left << setw(30) << '-' ;
+                std::cout << std::left << std::setw(30) << '-' ;
                 cout << left << setw(30) << _c.getName();
                 cout << left << setw(30) << _c.getVote();
                 cout << left << setw(30) << _c.getVotes();

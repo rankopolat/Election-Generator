@@ -81,7 +81,8 @@ Leader::Leader(const string& n){
     }
 }
 
-Candidate::Candidate(const string& n):voteCount(0),range(0),currentVote(0) {
+
+Candidate::Candidate(const string& n):currentVote(0),voteCount(0),range(0) {
 
     Human::name = n;
 

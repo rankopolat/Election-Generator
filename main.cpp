@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
         }
 
         days = std::stoi(argv[2]);
-        if(days > 30 | days <= 0){
+        if(days > 30 || days <= 0){
             throw ValueException("Please enter a Campaign day number less than or equal to 30 and greater than 0");
         }
 

@@ -13,7 +13,7 @@ class ElectionGenerator{
 private:
 
     const static unsigned int partyNumber = 3;
-    int totalElectorates;
+    unsigned int totalElectorates;
     RandomEng rndEng;
     std::vector<Event> events;
     std::vector<Issue> issues;
@@ -32,7 +32,7 @@ public:
     void generateElectorate(unsigned int);
     Leader generateLeader(Party p, std::string name);
     ManagerialTeam generateTeam(Party& p, std::string name);
-    Candidate generateCandidate(Party p, std::string name, int count);
+    Candidate generateCandidate(Party p, std::string name, unsigned int count);
 
     void loadEvents();
     void getEvent(int);
@@ -49,6 +49,7 @@ public:
     void outputWinner();
 
 
+    void loadData();
 };
 
 
